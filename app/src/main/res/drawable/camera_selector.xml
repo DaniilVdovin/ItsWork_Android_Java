@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:width="100dp" android:height="100dp">
+        <shape>
+            <stroke android:color="#F8C93E" android:width="3dp"/>
+            <corners android:radius="90dp"/>
+            <gradient android:type="radial"
+                android:endColor="#F8C93E"
+                android:startColor="#FF9900"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:gradientRadius="50dp"
+                android:useLevel="false"
+                android:angle="1"/>
+        </shape>
+    </item>
+    <item android:width="50dp" android:height="50dp" android:gravity="center" android:drawable="@drawable/ic_menu_camera"/>
+</layer-list>

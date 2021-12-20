@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.daniilvdovin.iswork.ui.home.HomeFragment"
+        android:label="@string/menu_task"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/createTaskFragment"
+        android:name="com.daniilvdovin.iswork.ui.task.createtask.CreateTaskFragment"
+        android:label="@string/nav_create_task"
+        tools:layout="@layout/fragment_create_task" />
+    <fragment
+        android:id="@+id/taskDetails"
+        android:name="com.daniilvdovin.iswork.ui.task.TaskDetails"
+        android:label="fragment_task_details"
+        tools:layout="@layout/fragment_task_details" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.daniilvdovin.iswork.ui.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/addReviewFragment"
+        android:name="com.daniilvdovin.iswork.ui.user.AddReviewFragment"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" />
+    <fragment
+        android:id="@+id/respondsViewFragment"
+        android:name="com.daniilvdovin.iswork.ui.task.responds.RespondsViewFragment"
+        android:label="fragment_responds_view"
+        tools:layout="@layout/fragment_responds_view" />
+    <fragment
+        android:id="@+id/addRespondFragment"
+        android:name="com.daniilvdovin.iswork.ui.task.responds.AddRespondFragment"
+        android:label="fragment_add_respond"
+        tools:layout="@layout/fragment_add_respond" />
+
+</navigation>
