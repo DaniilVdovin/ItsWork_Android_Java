@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -45,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
     byte[] avatar_bytes;
     Drawable bck;
 
-    boolean isEmailOk,isPassOk;
+    boolean isEmailOk, isPassOk;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -81,7 +82,6 @@ public class RegistrationActivity extends AppCompatActivity {
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(galleryIntent, 2);
         });
-
         //EmailCorrector
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -130,7 +130,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 return;
             }
         });
-
         //PassCorrector
         pass1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -201,32 +200,35 @@ public class RegistrationActivity extends AppCompatActivity {
                 }, 3000);
             }
         });
-
         commit.setOnClickListener(v -> {
-            if(avatar_bytes==null)return;
-            if(!isEmailOk && !isPassOk)return;
-            if(address.getText().toString().length()<1)return;
-            if(fullname.getText().toString().length()<1)return;
+            if (!isEmailOk && !isPassOk) return;
+            if (address.getText().toString().length() < 1) return;
+            if (fullname.getText().toString().length() < 1) return;
 
             JSONObject param = new JSONObject();
             try {
-                param.put("login",email.getText().toString());
-                param.put("password",pass1.getText().toString());
-                param.put("fullname",fullname.getText().toString());
-                param.put("location",address.getText().toString());
-                param.put("email",email.getText().toString());
+                param.put("login", email.getText().toString());
+                param.put("password", pass1.getText().toString());
+                param.put("fullname", fullname.getText().toString());
+                param.put("location", address.getText().toString());
+                param.put("email", email.getText().toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Core._post(getApplicationContext(),"/register",param,(result)->{
-                synchronized (result){
-                    File outputFile = new File("photo.jpg");
-                    try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
-                        outputStream.write(avatar_bytes);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            Core._post(getApplicationContext(), "/register", param, (result) -> {
+                synchronized (result) {
+                    SharedPreferences.Editor editor = getSharedPreferences("ItsWork_Main", MODE_PRIVATE).edit();
+                    editor.putString("token", result.get("token").toString());
+                    editor.apply();
+                    if (avatar_bytes != null) {
+                        File outputFile = new File("photo.jpg");
+                        try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
+                            outputStream.write(avatar_bytes);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Core._upload(getApplicationContext(), outputFile);
                     }
-                    Core._upload(getApplicationContext(),outputFile);
                     onBackPressed();
                 }
                 return null;
@@ -250,13 +252,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 cursor.close();
                 Bitmap bitmap = BitmapFactory.decodeFile(imgDecodableString);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,10,bos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);
                 Bitmap comp = BitmapFactory.decodeStream(new ByteArrayInputStream(bos.toByteArray()));
                 avatar_bytes = bos.toByteArray();
                 avatar.setImageBitmap(comp);
             }
         }
     }
+
     public static void verifyStoragePermissions(Activity activity) {
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {

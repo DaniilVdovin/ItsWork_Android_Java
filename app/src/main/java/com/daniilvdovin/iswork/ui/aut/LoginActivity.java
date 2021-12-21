@@ -38,12 +38,18 @@ public class LoginActivity extends AppCompatActivity {
     boolean needUpdate = false;
     SharedPreferences preferences;
 
+    @Override
+    protected void onResume() {
+        if(preferences != null)
+            loginViewToken();
+        super.onResume();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         preferences = getSharedPreferences("ItsWork_Main",MODE_PRIVATE);
 
         int versionCode = BuildConfig.VERSION_CODE;
@@ -110,34 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 b_SingIn.setOnClickListener((view) -> {
                     startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
                 });
-
-                if(preferences.contains("token")){
-                    b_LogIn.setVisibility(View.INVISIBLE);
-                    b_SingIn.setVisibility(View.INVISIBLE);
-                    e_Login.setVisibility(View.INVISIBLE);
-                    e_Password.setVisibility(View.INVISIBLE);
-                    wait_bar.setVisibility(View.VISIBLE);
-                    try {
-                        JSONObject param = new JSONObject();
-                        param.put("token", preferences.getString("token",""));
-                        Core._post(this, "/login", param,
-                                (result) -> {
-                                    synchronized (result) {
-                                        if (result.get("error") != null) {
-                                        } else {
-                                            Core._user = new User(result);
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                            finishAffinity();
-                                        }
-                                        wait_bar.setVisibility(View.GONE);
-                                    }
-                                    return null;
-                                });
-                    } catch (Exception e) {
-                        wait_bar.setVisibility(View.GONE);
-                        e.printStackTrace();
-                    }
-                }
+                loginViewToken();
             }else{
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle("Ой похоже вышла новыя версия")
@@ -157,5 +136,34 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         });
+    }
+    void loginViewToken(){
+        if(preferences.contains("token")){
+            b_LogIn.setVisibility(View.INVISIBLE);
+            b_SingIn.setVisibility(View.INVISIBLE);
+            e_Login.setVisibility(View.INVISIBLE);
+            e_Password.setVisibility(View.INVISIBLE);
+            wait_bar.setVisibility(View.VISIBLE);
+            try {
+                JSONObject param = new JSONObject();
+                param.put("token", preferences.getString("token",""));
+                Core._post(this, "/login", param,
+                        (result) -> {
+                            synchronized (result) {
+                                if (result.get("error") != null) {
+                                } else {
+                                    Core._user = new User(result);
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finishAffinity();
+                                }
+                                wait_bar.setVisibility(View.GONE);
+                            }
+                            return null;
+                        });
+            } catch (Exception e) {
+                wait_bar.setVisibility(View.GONE);
+                e.printStackTrace();
+            }
+        }
     }
 }
