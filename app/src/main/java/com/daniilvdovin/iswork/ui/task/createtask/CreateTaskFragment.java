@@ -1,5 +1,6 @@
 package com.daniilvdovin.iswork.ui.task.createtask;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +57,20 @@ public class CreateTaskFragment extends Fragment {
         contact = view.findViewById(R.id.et_task_dis2);
 
         isRemote = view.findViewById(R.id.cb_remote);
+
+
+        date.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                    (view1, year, monthOfYear, dayOfMonth) ->
+                            date.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year), mYear, mMonth, mDay);
+            datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+            datePickerDialog.show();
+        });
 
         categories = view.findViewById(R.id.spinner2);
         List<String> cat_text = new ArrayList<>();
