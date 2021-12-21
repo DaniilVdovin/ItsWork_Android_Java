@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
 
 import org.json.JSONException;
@@ -69,6 +71,12 @@ public class RegistrationActivity extends AppCompatActivity {
         pass2 = findViewById(R.id.et_reg_password_again);
 
         bck = pass2.getBackground();
+
+        fullname.setFilters(new InputFilter[]{Filters.main_filter});
+        email.setFilters(new InputFilter[]{Filters.main_filter});
+        address.setFilters(new InputFilter[]{Filters.main_filter});
+        pass1.setFilters(new InputFilter[]{Filters.main_filter});
+        pass2.setFilters(new InputFilter[]{Filters.main_filter});
 
         commit = findViewById(R.id.bt_commit);
 

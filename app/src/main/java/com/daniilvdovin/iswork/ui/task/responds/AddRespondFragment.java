@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Response;
 import com.daniilvdovin.iswork.models.Task;
@@ -61,6 +63,9 @@ public class AddRespondFragment extends Fragment {
         fullname = UserBar.findViewById(R.id.tv_user_fullname);
         starBar = UserBar.findViewById(R.id.rb_user_start);
         imageView = UserBar.findViewById(R.id.iv_user_image);
+
+        disc.setFilters(new InputFilter[]{Filters.main_filter});
+        price.setFilters(new InputFilter[]{Filters.price_filter});
 
         if(isAdd){
             execut.setVisibility(View.GONE);

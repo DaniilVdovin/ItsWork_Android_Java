@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Category;
 
@@ -57,6 +59,13 @@ public class CreateTaskFragment extends Fragment {
         contact = view.findViewById(R.id.et_task_dis2);
 
         isRemote = view.findViewById(R.id.cb_remote);
+
+
+        name.setFilters(new InputFilter[]{Filters.main_filter});
+        address.setFilters(new InputFilter[]{Filters.main_filter});
+        description.setFilters(new InputFilter[]{Filters.main_filter});
+        contact.setFilters(new InputFilter[]{Filters.main_filter});
+        price.setFilters(new InputFilter[]{Filters.price_filter});
 
 
         date.setOnClickListener(v -> {

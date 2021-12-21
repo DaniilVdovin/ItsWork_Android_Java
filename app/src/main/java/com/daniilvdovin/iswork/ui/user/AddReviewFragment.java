@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.User;
 
@@ -45,6 +47,9 @@ public class AddReviewFragment extends Fragment {
         Button send = view.findViewById(R.id.button3);
         EditText text = view.findViewById(R.id.editTextTextMultiLine);
         RatingBar stars = view.findViewById(R.id.ratingBar2);
+
+        text.setFilters(new InputFilter[]{Filters.main_filter});
+
 
         stars.setStepSize(1);
 
