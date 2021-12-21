@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <objectAnimator
+            android:duration="800"
+            android:interpolator="@android:anim/bounce_interpolator"
+            android:propertyName="translationY"
+            android:valueFrom="-300dp"
+            android:valueTo="0dp"
+            android:valueType="floatType" />
+    </item>
+</selector>

@@ -4,14 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/bt_login_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/camera_selector.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/card_list_animation_state.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/custome_btn_complite.xml" value="0.38564102564102565" />
+        <entry key="app/src/main/res/drawable/et_login_background.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/et_password_background.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/ic_at_solid.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_cool_background.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/mack.xml" value="0.39794871794871794" />
+        <entry key="app/src/main/res/drawable/screen_login_bacground.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.187109375" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.291015625" />
