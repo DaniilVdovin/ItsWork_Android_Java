@@ -33,6 +33,9 @@ import com.daniilvdovin.iswork.ui.user.adapters.ReviewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,6 +52,7 @@ public class UserFragment extends Fragment {
     RatingBar stars;
     RecyclerView reviews;
     FloatingActionButton add_review;
+    ReviewAdapter reviewAdapter;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -64,6 +68,27 @@ public class UserFragment extends Fragment {
         if (getArguments() != null) {
             user = (User) getArguments().getParcelable("user");
         }
+    }
+
+    @Override
+    public void onResume() {
+        JSONObject param = new JSONObject();
+        try {
+            param.put("token", Core._user.token);
+            param.put("id",user.id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Core._post(getContext(), "/getuser", param, (result) -> {
+            synchronized (result) {
+                user = new User(result);
+                reviewAdapter.update(user.reviews);
+                stars.setRating(user.stars);
+
+            }
+            return null;
+        });
+        super.onResume();
     }
 
     @Override
@@ -83,7 +108,7 @@ public class UserFragment extends Fragment {
         address.setText(user.location);
 
         stars.setRating(user.stars);
-        ReviewAdapter reviewAdapter = new ReviewAdapter(user.reviews);
+        reviewAdapter = new ReviewAdapter(user.reviews);
         reviews.setNestedScrollingEnabled(false);
         reviews.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         reviews.setAdapter(reviewAdapter);
