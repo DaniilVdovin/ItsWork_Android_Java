@@ -33,15 +33,14 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText e_Login, e_Password;
     Button b_LogIn, b_SingIn;
-    ProgressBar wait_bar;
+    ProgressBar wait_bar, main;
+    View card_login;
 
     boolean needUpdate = false;
     SharedPreferences preferences;
 
     @Override
     protected void onResume() {
-        if(preferences != null)
-            loginViewToken();
         super.onResume();
     }
 
@@ -60,14 +59,24 @@ public class LoginActivity extends AppCompatActivity {
 
         b_LogIn = findViewById(R.id.b_login);
         b_SingIn = findViewById(R.id.b_registration);
+        b_SingIn.setVisibility(View.GONE);
 
         wait_bar = findViewById(R.id.wait_login_bar);
         wait_bar.setVisibility(View.GONE);
+
+        card_login = findViewById(R.id.login_card);
+        card_login.setVisibility(View.GONE);
+
+        main = findViewById(R.id.main_wait_bar);
+        main.setVisibility(View.VISIBLE);
 
         Core._post(getApplicationContext(),"/public/version",new JSONObject(),(res)->{
             Log.e("V",res.get("version").toString()+"!=" +versionCode);
             needUpdate = (((Double)res.get("version")).intValue() != versionCode);
             if(!needUpdate) {
+                card_login.setVisibility(View.VISIBLE);
+                b_SingIn.setVisibility(View.VISIBLE);
+                main.setVisibility(View.GONE);
                 Core._categories.clear();
                 Core._post(getApplicationContext(), "/public/categories", new JSONObject(), (result) -> {
                     for (Map<String, Object> element : ((List<Map<String, Object>>) result.get("categories"))) {
@@ -139,6 +148,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     void loginViewToken(){
         if(preferences.contains("token")){
+            main.setVisibility(View.VISIBLE);
+            card_login.setVisibility(View.INVISIBLE);
             b_LogIn.setVisibility(View.INVISIBLE);
             b_SingIn.setVisibility(View.INVISIBLE);
             e_Login.setVisibility(View.INVISIBLE);
