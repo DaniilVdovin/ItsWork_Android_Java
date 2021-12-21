@@ -6,12 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:icon="@drawable/ic_search_stroke"
             android:title="@string/menu_task" />
         <item
             android:id="@+id/createTaskFragment"
+            android:icon="@drawable/ic_writing_stroke"
             android:title="Создать задание" />
         <item
             android:id="@+id/myResponds"
-                android:title="Мои ответы (В разработке)" />
+            android:icon="@drawable/ic_questions_stroke"
+            android:title="Мои ответы (В разработке)" />
     </group>
 </menu>
