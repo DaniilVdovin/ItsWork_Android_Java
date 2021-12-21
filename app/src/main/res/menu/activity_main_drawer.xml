@@ -10,5 +10,8 @@
         <item
             android:id="@+id/createTaskFragment"
             android:title="Создать задание" />
+        <item
+            android:id="@+id/myResponds"
+                android:title="Мои ответы (В разработке)" />
     </group>
 </menu>
