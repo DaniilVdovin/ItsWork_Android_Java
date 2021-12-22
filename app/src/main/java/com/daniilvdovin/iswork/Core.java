@@ -20,6 +20,7 @@ import com.daniilvdovin.iswork.models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -31,7 +32,15 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +54,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.entity.mime.HttpMultipartMode;
 import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.entity.mime.content.FileBody;
+import cz.msebera.android.httpclient.entity.mime.content.StringBody;
 import okhttp3.MultipartBody;
 
 
@@ -102,25 +112,36 @@ public class Core {
             }
         });
     }
-    public static void _upload(Context context,File file){
+    public static void _upload(String link){
         RequestParams params = new RequestParams();
         try {
-            params.put("file", file);
+            params.put("token",_user.token);
+            params.put("file",new File(link));
         } catch(FileNotFoundException e) {}
-        HttpEntity entity = new FileEntity(file);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(context,Core.Host+"/upload",entity,"multipart/form-data", new JsonHttpResponseHandler() {
+        Log.e("RA",params.toString());
+        client.post(Core.Host + "/upload",params,new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e("FILE","OK");
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e("IMG",responseString);
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e("FILE",error.toString());
             }
         });
+        /*client.post(context, Core.Host + "/upload", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.e("FILE","OK");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e("FILE",error.toString());
+            }
+        });*/
     }
     public static void getImage(Context context,Integer id,Function<Bitmap, Object> function){
         JSONObject param = new JSONObject();

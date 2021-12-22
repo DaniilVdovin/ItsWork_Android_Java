@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -154,18 +155,14 @@ public class UserFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG,10,bos);
                 Bitmap comp = BitmapFactory.decodeStream(new ByteArrayInputStream(bos.toByteArray()));
 
-                File outputFile = null;
-                try {
-                    outputFile = File.createTempFile("img",".jpg");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                File outputFile = new File(Environment.getExternalStorageDirectory()
+                        + "/photo.jpg");
                 try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
                     outputStream.write(bos.toByteArray());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Core._upload(getContext(),outputFile);
+                Core._upload(imgDecodableString);
 
                 avatar.setImageBitmap(comp);
             }
@@ -173,7 +170,16 @@ public class UserFragment extends Fragment {
     }
     public static void verifyStoragePermissions(Activity activity) {
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission2 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+        if (permission2 != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     activity,

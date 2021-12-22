@@ -49,6 +49,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText fullname, email, address, pass1, pass2;
     Button commit;
     byte[] avatar_bytes;
+    String avatar_link;
     Drawable bck;
 
     boolean isEmailOk, isPassOk;
@@ -91,7 +92,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         avatar.setOnClickListener(v -> {
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, 2);
+
+            startActivityForResult(Intent.createChooser(galleryIntent, "Выбор изображения"), 2);
         });
         //EmailCorrector
         email.addTextChangedListener(new TextWatcher() {
@@ -238,7 +240,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Core._upload(getApplicationContext(), outputFile);
+                        Core._upload(avatar_link);
                     }
                     onBackPressed();
                 }
@@ -266,18 +268,32 @@ public class RegistrationActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);
                 Bitmap comp = BitmapFactory.decodeStream(new ByteArrayInputStream(bos.toByteArray()));
                 avatar_bytes = bos.toByteArray();
+                avatar_link = imgDecodableString;
 
-                RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.create(getResources(), comp);
-                roundDrawable.setCircular(true);
+                avatar.setImageBitmap(comp);
 
-                avatar.setImageDrawable(roundDrawable);
+                //RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.create(getResources(), comp);
+                //roundDrawable.setCircular(true);
+                //roundDrawable.setAntiAlias(true);
+
+
+                //avatar.setImageDrawable(roundDrawable);
             }
         }
     }
 
     public static void verifyStoragePermissions(Activity activity) {
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission2 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+        if (permission2 != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     activity,
