@@ -2,6 +2,8 @@ package com.daniilvdovin.iswork.ui.aut;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,6 +23,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -263,7 +266,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);
                 Bitmap comp = BitmapFactory.decodeStream(new ByteArrayInputStream(bos.toByteArray()));
                 avatar_bytes = bos.toByteArray();
-                avatar.setImageBitmap(comp);
+
+                RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.create(getResources(), comp);
+                roundDrawable.setCircular(true);
+
+                avatar.setImageDrawable(roundDrawable);
             }
         }
     }

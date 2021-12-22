@@ -8,8 +8,10 @@
         <entry key="app/src/main/res/drawable/camera_selector.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/card_list_animation_state.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/custome_btn_complite.xml" value="0.38564102564102565" />
+        <entry key="app/src/main/res/drawable/et_addres_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/et_login_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/et_password_background.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/drawable/et_username_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_at_solid.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_cool_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.39166666666666666" />
@@ -27,7 +29,7 @@
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.291015625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3669675281039855" />
-        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.2628920198792127" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.375" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fallters_button_bar.xml" value="0.3880208333333333" />

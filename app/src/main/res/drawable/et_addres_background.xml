@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:height="48dp">
+        <shape>
+            <stroke android:color="@color/purple_700" android:width="2dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_address" android:height="25dp" android:width="25dp" android:gravity="center_vertical" android:start="12dp"/>
+</layer-list>
