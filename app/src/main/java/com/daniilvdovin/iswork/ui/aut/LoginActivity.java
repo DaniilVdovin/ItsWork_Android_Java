@@ -3,6 +3,7 @@ package com.daniilvdovin.iswork.ui.aut;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -51,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         preferences = getSharedPreferences("ItsWork_Main",MODE_PRIVATE);
+
+        View root = findViewById(R.id.root);
+        View title = findViewById(R.id.title);
 
         int versionCode = BuildConfig.VERSION_CODE;
         String versionName = BuildConfig.VERSION_NAME;
@@ -124,7 +129,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
                 b_SingIn.setOnClickListener((view) -> {
-                    startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+                    Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                    Pair[] pairs = new Pair[6];
+                    pairs[0] = new Pair<View, String>(card_login,"login_card");
+                    pairs[1] = new Pair<View, String>(e_Login,"email");
+                    pairs[2] = new Pair<View, String>(e_Password,"password");
+                    pairs[3] = new Pair<View, String>(b_LogIn,"bt_reg");
+                    pairs[4] = new Pair<View, String>(root,"root");
+                    pairs[5] = new Pair<View, String>(title,"title");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+                    startActivity(intent,options.toBundle());
                 });
                 loginViewToken();
             }else{
