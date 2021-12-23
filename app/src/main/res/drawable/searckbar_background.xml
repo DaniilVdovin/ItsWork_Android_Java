@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/white"/>
+                    <corners android:radius="20dp"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/ic_search" android:width="20dp" android:height="20dp" android:gravity="center_vertical" android:left="16dp"/>
+        </layer-list>
+
+    </item>
+</selector>

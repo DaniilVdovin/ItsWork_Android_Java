@@ -1,9 +1,12 @@
 package com.daniilvdovin.iswork;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +14,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -26,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +41,44 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.getRoot().findViewById(R.id.toolbar));
+        Toolbar toolbar = binding.getRoot().findViewById(R.id.toolbar);
+
+
+        SearchView searchView = toolbar.findViewById(R.id.searchview);
+        EditText searchEditText = (EditText) searchView.findViewById(R.id.search_src_text);
+        searchEditText.setPadding(130,0,0,0);
+        searchEditText.setTextColor(getResources().getColor(R.color.black_light));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.gray));
+
+
+        setSupportActionBar(toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)
                 .build();
 
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            navController.navigate(item.getItemId());
+            mAppBarConfiguration.getOpenableLayout().close();
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    searchView.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    searchView.setVisibility(View.GONE);
+                    break;
+            }
+            return true;
+        });
 
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.name_text_header)).setText(Core._user.fullName);
         Picasso.get()
@@ -65,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

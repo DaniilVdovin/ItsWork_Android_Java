@@ -1,6 +1,8 @@
 package com.daniilvdovin.iswork.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -41,10 +46,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     TaskAdapter adapter = new TaskAdapter(new ArrayList<Task>());
@@ -52,19 +57,24 @@ public class HomeFragment extends Fragment {
     TextView error_alert;
     CardView allert_bar;
     Button bt_fillters;
+    SearchView searchView;
 
     Category _filter_item;
     boolean _remote = false;
     int _price_min = 0;
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         bt_fillters = root.findViewById(R.id.bt_filters);
+
+        searchView = requireActivity().findViewById(R.id.toolbar).findViewById(R.id.searchview);
+        searchView.setVisibility(View.VISIBLE);
 
         recyclerView = root.findViewById(R.id.rec_task);
         error_alert = root.findViewById(R.id.tv_e_dis);
@@ -239,7 +249,6 @@ public class HomeFragment extends Fragment {
         });
         bottomSheetDialog.show();
     }
-
 
     @Override
     public void onDestroyView() {
