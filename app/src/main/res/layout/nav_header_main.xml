@@ -14,9 +14,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:contentDescription="@string/nav_header_desc"
-        android:foreground="@drawable/mask"
         android:foregroundGravity="fill"
-        android:foregroundTint="@color/white"
         android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -24,13 +22,17 @@
         android:id="@+id/name_text_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxHeight="70dp"
         android:paddingLeft="10dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:paddingBottom="15dp"
-        android:text="@string/nav_header_title"
+        android:text="basdasd"
+        android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?attr/colorControlNormal"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        app:autoSizeMaxTextSize="20sp"
+        app:autoSizeMinTextSize="1sp"
+        app:autoSizeTextType="uniform" />
 
 </LinearLayout>

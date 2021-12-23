@@ -21,7 +21,7 @@
           android:top="50dp">
         <shape>
             <solid
-                android:color="@color/cardview_light_background"/>
+                android:color="@color/white"/>
             <corners
                 android:topRightRadius="10dp"
                 android:bottomRightRadius="10dp"/>

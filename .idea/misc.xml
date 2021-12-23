@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/drawable/screen_gradient_background.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/screen_login_bacground.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/font/golos.xml" value="0.20364583333333333" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.187109375" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.291015625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.37552083333333336" />

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.name_text_header)).setText(Core._user.fullName);
         Picasso.get()
                 .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+Core._user.id)
+                .transform(new CircleTransform())
                 .into(((ImageView)navigationView.getHeaderView(0).findViewById(R.id.imageView)));
 
         (navigationView.getHeaderView(0)).setOnClickListener((v -> {
