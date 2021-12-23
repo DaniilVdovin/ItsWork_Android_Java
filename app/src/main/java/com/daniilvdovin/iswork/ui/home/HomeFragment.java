@@ -58,12 +58,12 @@ public class HomeFragment extends Fragment {
     CardView allert_bar;
     Button bt_fillters;
     SearchView searchView;
+    ArrayList<Task> tasks = new ArrayList<>();
 
     Category _filter_item;
     boolean _remote = false;
     int _price_min = 0;
-
-
+    int w_api = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,32 +76,39 @@ public class HomeFragment extends Fragment {
         searchView = requireActivity().findViewById(R.id.toolbar).findViewById(R.id.searchview);
         searchView.setVisibility(View.VISIBLE);
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.search(tasks,query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.search(tasks,newText);
+                return false;
+            }
+        });
+
         recyclerView = root.findViewById(R.id.rec_task);
         error_alert = root.findViewById(R.id.tv_e_dis);
         allert_bar = root.findViewById(R.id.alert_bar);
         allert_bar.setVisibility(View.GONE);
         wait_bar = root.findViewById(R.id.wait_bar);
         wait_bar.setVisibility(View.VISIBLE);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setAdapter(adapter);
+
+
+
         TabLayout tl_select_bar = root.findViewById(R.id.tl_select_bar);
         resetRecView("/task/all");
         tl_select_bar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        resetRecView("/task/all");
-                        break;
-                    case 1:
-                        resetRecView("/task/my");
-                        break;
-                    case 2:
-                        resetRecView("/task/myexecute");
-                        break;
-                    default:
-                        break;
-                }
+                w_api = tab.getPosition();
+                loadData();
             }
 
             @Override
@@ -119,6 +126,7 @@ public class HomeFragment extends Fragment {
     }
 
     void resetRecView(String api) {
+        tasks.clear();
         wait_bar.setVisibility(View.VISIBLE);
         allert_bar.setVisibility(View.GONE);
         JSONObject object = new JSONObject();
@@ -127,7 +135,6 @@ public class HomeFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ArrayList<Task> tasks = new ArrayList<>();
         adapter.update(tasks);
         Core._post(getActivity().getApplicationContext(), api, object,
                 (result) -> {
@@ -240,16 +247,30 @@ public class HomeFragment extends Fragment {
             _remote = false;
             _price_min = 0;
             _filter_item = null;
-            resetRecView("/task/all");
+            loadData();
             bottomSheetDialog.cancel();
         });
         ((Button)bottomSheetDialog.findViewById(R.id.button5)).setOnClickListener(v->{
-            resetRecView("/task/all");
+            loadData();
             bottomSheetDialog.cancel();
         });
         bottomSheetDialog.show();
     }
-
+    public void loadData(){
+        switch (w_api) {
+            case 0:
+                resetRecView("/task/all");
+                break;
+            case 1:
+                resetRecView("/task/my");
+                break;
+            case 2:
+                resetRecView("/task/myexecute");
+                break;
+            default:
+                break;
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

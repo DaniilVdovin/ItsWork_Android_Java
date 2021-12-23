@@ -19,6 +19,9 @@ import com.daniilvdovin.iswork.models.Task;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.function.IntFunction;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
@@ -30,6 +33,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public void update(ArrayList<Task> tasks){
         this.tasks.clear();
         this.tasks.addAll(tasks);
+        this.notifyDataSetChanged();
+    }
+    public void search(ArrayList<Task> tasks_non_filtered,String word){
+        this.tasks.clear();
+        String w = word.toLowerCase(Locale.ROOT);
+        for (Task t:tasks_non_filtered) {
+            if(t.title.toLowerCase(Locale.ROOT).contains(w))
+                this.tasks.add(t);
+        }
         this.notifyDataSetChanged();
     }
     @NonNull

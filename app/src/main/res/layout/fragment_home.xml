@@ -21,13 +21,18 @@
         android:id="@+id/tl_select_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="center"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="bottom"
-        app:tabMode="scrollable">
+        app:tabIndicatorHeight="10dp"
+        app:tabMode="scrollable"
+        app:tabTextColor="@color/text_tabbar_color_selector">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
@@ -53,8 +58,6 @@
         android:layout_marginTop="16dp"
         android:alpha="0.2"
         android:indeterminate="true"
-        android:indeterminateTint="@color/purple_500"
-        android:progressTint="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rec_task" />

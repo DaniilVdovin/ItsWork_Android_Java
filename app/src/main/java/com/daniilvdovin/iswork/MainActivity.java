@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(item -> {
+            searchView.clearFocus();
             navController.navigate(item.getItemId());
             mAppBarConfiguration.getOpenableLayout().close();
             switch (item.getItemId()){
