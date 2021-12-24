@@ -17,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.MainActivity;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Task;
 import com.daniilvdovin.iswork.models.User;
@@ -44,6 +45,7 @@ public class TaskDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.searchView.setVisibility(View.GONE);
         if (getArguments() != null) {
             task = (Task) getArguments().getParcelable("task");
             //reload task

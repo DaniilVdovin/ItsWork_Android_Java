@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
+    public static  SearchView searchView;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = binding.getRoot().findViewById(R.id.toolbar);
 
 
-        SearchView searchView = toolbar.findViewById(R.id.searchview);
+        searchView = toolbar.findViewById(R.id.searchview);
         EditText searchEditText = (EditText) searchView.findViewById(R.id.search_src_text);
+
         searchEditText.setPadding(130,0,0,0);
         searchEditText.setTextColor(getResources().getColor(R.color.black_light));
         searchEditText.setHintTextColor(getResources().getColor(R.color.gray));
