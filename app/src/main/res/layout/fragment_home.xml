@@ -30,7 +30,7 @@
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="bottom"
-        app:tabIndicatorHeight="10dp"
+        app:tabIndicatorHeight="15dp"
         app:tabMode="scrollable"
         app:tabTextColor="@color/text_tabbar_color_selector">
 
@@ -95,15 +95,19 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
-        android:text="Фильтры"
-        app:cornerRadius="10dp"
+        android:clickable="true"
+        android:src="@drawable/ic_filter"
+        app:backgroundTint="@color/purple_700"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:maxImageSize="50dp"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

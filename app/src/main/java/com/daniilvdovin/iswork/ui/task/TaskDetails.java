@@ -46,7 +46,31 @@ public class TaskDetails extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             task = (Task) getArguments().getParcelable("task");
+            //reload task
+            loadData();
         }
+    }
+
+    @Override
+    public void onResume() {
+        loadData();
+        super.onResume();
+    }
+
+    private void loadData() {
+        JSONObject param = new JSONObject();
+        try {
+            param.put("taken",Core._user.token);
+            param.put("id",task.id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Core._post(getContext(),"/task/get",param,result->{
+            synchronized (result){
+                task = new Task(result);
+            }
+            return null;
+        });
     }
 
     @Override

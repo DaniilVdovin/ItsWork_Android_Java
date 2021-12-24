@@ -37,6 +37,7 @@ import com.daniilvdovin.iswork.models.Category;
 import com.daniilvdovin.iswork.models.Task;
 import com.daniilvdovin.iswork.ui.home.adapters.TaskAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
     ProgressBar wait_bar;
     TextView error_alert;
     CardView allert_bar;
-    Button bt_fillters;
+    FloatingActionButton bt_fillters;
     SearchView searchView;
     ArrayList<Task> tasks = new ArrayList<>();
 
