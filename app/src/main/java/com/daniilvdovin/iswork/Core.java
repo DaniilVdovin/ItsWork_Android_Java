@@ -65,7 +65,7 @@ public class Core {
     public static List<Category> _categories = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void _post(Context context, String api, JSONObject params, Function<Map<String, Object>, Object> function) {
+    public static AsyncHttpClient _post(Context context, String api, JSONObject params, Function<Map<String, Object>, Object> function) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("charset","utf-8");
         client.addHeader("Accept-Charset", "UTF-8");
@@ -102,6 +102,7 @@ public class Core {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Log.e("API|"+api,responseString);
             }
 
             @Override
@@ -111,6 +112,7 @@ public class Core {
                 function.apply(JsonToMap(responseString));
             }
         });
+        return client;
     }
     public static void _upload(String link){
         RequestParams params = new RequestParams();

@@ -16,13 +16,13 @@
                     <option name="name" value="New Request" />
                     <option name="paramGroup">
                       <ParamGroupCollection>
-                        <option name="bodyKeyValueListJson" value="{&quot;token&quot;: &quot;Some&quot;}" />
+                        <option name="bodyKeyValueListJson" value="{&quot;token&quot;: &quot;rfb2XVDlwtWnsIPk1F0EyzJPx7ukAziY&quot;,&quot;id&quot;:1}" />
                         <option name="methodDescription" value="New Request" />
                         <option name="methodType" value="POST" />
                         <option name="multipartKeyValueListJson" value="[]" />
                         <option name="originUrl" value="" />
                         <option name="pathParamsKeyValueListJson" value="[]" />
-                        <option name="url" value="/public/version" />
+                        <option name="url" value="/getuser" />
                         <option name="urlEncodedKeyValueListJson" value="[]" />
                         <option name="urlEncodedKeyValueListText" value="" />
                         <option name="urlParamsKeyValueListJson" value="[]" />

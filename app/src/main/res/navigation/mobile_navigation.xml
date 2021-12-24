@@ -40,5 +40,10 @@
         android:name="com.daniilvdovin.iswork.ui.task.responds.AddRespondFragment"
         android:label="@string/nav_add_respond"
         tools:layout="@layout/fragment_add_respond" />
+    <fragment
+        android:id="@+id/myResponseFragment"
+        android:name="com.daniilvdovin.iswork.MyResponseFragment"
+        android:label="fragment_my_response"
+        tools:layout="@layout/fragment_my_response" />
 
 </navigation>

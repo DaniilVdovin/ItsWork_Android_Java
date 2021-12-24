@@ -154,18 +154,45 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv_user_avatar"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/relativeLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="16dp"
-                            android:adjustViewBounds="true"
-                            android:forceHasOverlappingRendering="false"
-                            android:foreground="@drawable/mask"
-                            android:foregroundTint="?attr/colorBackgroundFloating"
-                            android:scaleType="centerCrop"
-                            tools:src="@tools:sample/avatars" />
+                            android:paddingTop="16dp">
+
+                            <ImageView
+                                android:id="@+id/iv_user_avatar"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center_horizontal"
+                                android:adjustViewBounds="true"
+                                android:forceHasOverlappingRendering="false"
+                                android:foreground="@drawable/mask"
+                                android:foregroundTint="?attr/colorBackgroundFloating"
+                                android:scaleType="centerCrop"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:src="@tools:sample/avatars" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                style="?android:attr/progressBarStyle"
+                                android:layout_width="130dp"
+                                android:layout_height="130dp"
+                                android:indeterminate="false"
+                                android:indeterminateBehavior="cycle"
+                                android:indeterminateOnly="false"
+                                android:max="100"
+                                android:progress="30"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/tv_user_name"
@@ -176,6 +203,7 @@
                             android:text="TextView"
                             android:textAlignment="center"
                             android:textSize="24sp" />
+
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

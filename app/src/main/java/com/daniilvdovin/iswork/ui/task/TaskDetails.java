@@ -21,6 +21,7 @@ import com.daniilvdovin.iswork.MainActivity;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Task;
 import com.daniilvdovin.iswork.models.User;
+import com.loopj.android.http.AsyncHttpClient;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class TaskDetails extends Fragment {
         if (getArguments() != null) {
             task = (Task) getArguments().getParcelable("task");
             //reload task
-            loadData();
+            //loadData();
         }
     }
 
@@ -58,18 +59,24 @@ public class TaskDetails extends Fragment {
         loadData();
         super.onResume();
     }
-
+    AsyncHttpClient client;
     private void loadData() {
+        if(client != null)
+            client.cancelAllRequests(true);
+        if(responsed != null)
+            responsed.setEnabled(false);
         JSONObject param = new JSONObject();
         try {
-            param.put("taken",Core._user.token);
+            param.put("token",Core._user.token);
             param.put("id",task.id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Core._post(getContext(),"/task/get",param,result->{
+        client = Core._post(getContext(),"/task/get",param,result->{
             synchronized (result){
                 task = new Task(result);
+                if(responsed != null)
+                    responsed.setEnabled(true);
             }
             return null;
         });
@@ -188,7 +195,12 @@ public class TaskDetails extends Fragment {
         title.setText(task.title);
         price.setText("до " + task.price + " P");
         description.setText(task.description);
-        address.setText(task.location);
+
+        if(task.location.equals("0")){
+            address.setText("Можно выполнить удаленно");
+        }else {
+            address.setText(task.location);
+        }
         category.setText(Core.getCategoryById(task.category).name);
 
         Picasso.get().load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + task.author).into(imageView);
@@ -201,6 +213,7 @@ public class TaskDetails extends Fragment {
         try {
             param.put("token", Core._user.token);
             param.put("id", task.author);
+            param.put("all",0);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -79,6 +79,7 @@ public class UserFragment extends Fragment {
         try {
             param.put("token", Core._user.token);
             param.put("id",user.id);
+            param.put("all",1);
         } catch (JSONException e) {
             e.printStackTrace();
         }

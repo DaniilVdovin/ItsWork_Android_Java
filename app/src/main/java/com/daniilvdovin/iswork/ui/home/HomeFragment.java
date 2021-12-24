@@ -41,6 +41,7 @@ import com.daniilvdovin.iswork.ui.home.adapters.TaskAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.loopj.android.http.AsyncHttpClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Task> tasks = new ArrayList<>();
 
     Category _filter_item;
+    int _filte_pos = 0;
     boolean _remote = false;
     int _price_min = 0;
     int w_api = 0;
@@ -132,8 +134,10 @@ public class HomeFragment extends Fragment {
         }));
         return root;
     }
-
+    AsyncHttpClient client;
     void resetRecView(String api) {
+        if(client != null)
+            client.cancelAllRequests(true);
         tasks.clear();
         wait_bar.setVisibility(View.VISIBLE);
         allert_bar.setVisibility(View.GONE);
@@ -144,7 +148,7 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
         adapter.update(tasks);
-        Core._post(getActivity().getApplicationContext(), api, object,
+        client = Core._post(getActivity().getApplicationContext(), api, object,
                 (result) -> {
                     synchronized (result) {
                         if (result.get("error") != null) {
@@ -195,6 +199,7 @@ public class HomeFragment extends Fragment {
                 }
                 synchronized (Core._categories){
                     cat_text.clear();
+                    cat_text.add("Все");
                     for (Category s:Core._categories) {
                         if(s.parent==0 && s.name!=null){
                             cat_text.add(s.name);
@@ -205,6 +210,7 @@ public class HomeFragment extends Fragment {
             });
         }else {
             cat_text.clear();
+            cat_text.add("Все");
             for (Category s:Core._categories) {
                 if(s.parent==0 && s.name!=null){
                     cat_text.add(s.name);
@@ -217,7 +223,9 @@ public class HomeFragment extends Fragment {
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                _filter_item = Core._categories.get(position);
+                if(position == 0 ) _filter_item = null;
+                else _filter_item = Core._categories.get(position);
+                _filte_pos = position;
             }
 
             @Override
@@ -226,9 +234,14 @@ public class HomeFragment extends Fragment {
             }
         };
         categories.setOnItemSelectedListener(itemSelectedListener);
+        categories.setSelection(_filte_pos);
 
         TextView price_text_min = bottomSheetDialog.findViewById(R.id.textView10);
         SeekBar price = bottomSheetDialog.findViewById(R.id.seekBar2);
+
+        price_text_min.setText("Стоймость от "+_price_min+" руб");
+        price.setProgress(_price_min);
+
         price.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -247,6 +260,7 @@ public class HomeFragment extends Fragment {
         });
 
         Switch is_remote = bottomSheetDialog.findViewById(R.id.switch2);
+        is_remote.setChecked(_remote);
         is_remote.setOnClickListener(v -> {
             _remote = is_remote.isChecked();
         });

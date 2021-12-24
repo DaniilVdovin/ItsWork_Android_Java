@@ -44,10 +44,12 @@ public class User implements Parcelable {
         avatar = (String) json.get("avatar");
 
         tasks = new ArrayList<>();
+        if(json.containsKey("tasks"))
         for (Map<String,Object> element:((ArrayList<Map<String,Object>>) json.get("tasks"))) {
             tasks.add(new Task(element));
         }
         reviews = new ArrayList<>();
+        if(json.containsKey("reviews"))
         for (Map<String,Object> element:((ArrayList<Map<String,Object>>) json.get("reviews"))) {
             reviews.add(new Review(element));
         }
