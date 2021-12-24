@@ -27,6 +27,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.daniilvdovin.iswork.Core;
+import com.daniilvdovin.iswork.MainActivity;
 import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Review;
 import com.daniilvdovin.iswork.models.User;
@@ -65,6 +66,7 @@ public class UserFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        MainActivity.searchView.setVisibility(View.GONE);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             user = (User) getArguments().getParcelable("user");

@@ -10,7 +10,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/filter_bar_tolbar_background"
         android:elevation="10dp"
         android:isScrollContainer="false"
         android:keepScreenOn="false"
@@ -40,7 +40,7 @@
                 android:layout_height="60dp"
                 android:dropDownWidth="match_parent"
                 android:nestedScrollingEnabled="true"
-                android:paddingStart="16dp"
+                android:paddingStart="5dp"
                 android:paddingEnd="16dp"
                 android:saveEnabled="true"
                 android:spinnerMode="dialog"
@@ -71,16 +71,19 @@
                 android:layout_marginTop="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Стоймость от" />
+                android:text="Стоймость от 0 руб." />
 
             <SeekBar
                 android:id="@+id/seekBar2"
                 style="@style/Widget.AppCompat.SeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:max="100000"
+                android:indeterminate="false"
+                android:max="50000"
                 android:min="0"
-                android:progress="50000"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:progress="0"
                 android:progressTint="@color/purple_500" />
 
             <Space
