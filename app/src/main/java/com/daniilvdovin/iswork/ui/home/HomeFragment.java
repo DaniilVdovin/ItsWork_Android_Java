@@ -1,6 +1,7 @@
 package com.daniilvdovin.iswork.ui.home;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +100,12 @@ public class HomeFragment extends Fragment {
         wait_bar = root.findViewById(R.id.wait_bar);
         wait_bar.setVisibility(View.VISIBLE);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.item_divider_background));
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
 

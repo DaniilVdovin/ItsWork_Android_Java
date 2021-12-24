@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/i_task_icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,8 +21,10 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:text="TextView"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/i_task_icon"
         app:layout_constraintTop_toTopOf="@+id/i_task_icon" />
 
@@ -30,9 +32,10 @@
         android:id="@+id/tv_dis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/i_task_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -40,9 +43,11 @@
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/i_task_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_dis" />
 </androidx.constraintlayout.widget.ConstraintLayout>

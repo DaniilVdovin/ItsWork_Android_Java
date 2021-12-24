@@ -55,23 +55,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         final Task task = tasks.get(position);
         holder.title.setText(task.title);
         holder.description.setText(task.description.substring(0,task.description.length()>20?20:task.description.length())+(task.description.length()>=20?"...":""));
-        holder.price.setText("to "+task.price+" P");
+        holder.price.setText("до "+task.price+" ₽");
 
         int res = android.R.drawable.ic_dialog_dialer;
         switch (task.status){
-            case 0: res = android.R.drawable.ic_lock_idle_lock;
+            case 0: res = R.drawable.ic_item_close;
                 break;
-            case 1: res = android.R.drawable.ic_dialog_dialer;
+            case 1: res = R.drawable.ic_item_open;
                 break;
-            case 2: res = android.R.drawable.ic_lock_idle_alarm;
+            case 2: res = R.drawable.ic_item_waiting;
                 break;
-            case 3: res = android.R.drawable.checkbox_on_background;
+            case 3: res = R.drawable.ic_item_success;
                 break;
             case 4: res = android.R.drawable.ic_menu_save;
                 break;
         }
         holder.image.setImageResource(res);
-        holder.image.setColorFilter(Color.GRAY);
 
         holder.itemView.setOnClickListener((v)->{
             Bundle bundle = new Bundle();
