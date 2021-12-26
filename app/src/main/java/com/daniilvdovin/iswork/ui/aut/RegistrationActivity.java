@@ -27,10 +27,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import com.daniilvdovin.iswork.CircleTransform;
 import com.daniilvdovin.iswork.Core;
 import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -240,7 +243,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Core._upload(avatar_link);
+                        Core._upload(avatar_link,new ProgressBar(getApplicationContext()));
                     }
                     onBackPressed();
                 }
@@ -270,8 +273,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 avatar_bytes = bos.toByteArray();
                 avatar_link = imgDecodableString;
 
-                avatar.setImageBitmap(comp);
-
+                //avatar.setImageBitmap(comp);
+                Picasso.get()
+                        .load(selectedImage)
+                        .resize(512,512)
+                        .centerCrop(1)
+                        .transform(new CircleTransform())
+                        .into(avatar);
                 //RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.create(getResources(), comp);
                 //roundDrawable.setCircular(true);
                 //roundDrawable.setAntiAlias(true);

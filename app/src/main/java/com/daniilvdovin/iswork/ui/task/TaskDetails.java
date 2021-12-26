@@ -203,7 +203,6 @@ public class TaskDetails extends Fragment {
         }
         category.setText(Core.getCategoryById(task.category).name);
 
-        Picasso.get().load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + task.author).into(imageView);
         loaduser();
         return view;
     }
@@ -222,7 +221,7 @@ public class TaskDetails extends Fragment {
                 user = new User(result);
                 fullname.setText(user.fullName);
                 starBar.setRating(user.stars);
-
+                Picasso.get().load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + task.author+"&avatar="+Core._user.avatar).into(imageView);
                 UserBar.setOnClickListener((v) -> {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("user", user);

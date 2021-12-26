@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.daniilvdovin.iswork.databinding.ActivityMainBinding;
 import com.squareup.picasso.Picasso;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.name_text_header)).setText(Core._user.fullName);
         Picasso.get()
-                .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+Core._user.id)
+                .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+Core._user.id+"&avatar="+Core._user.avatar)
                 .transform(new CircleTransform())
                 .into(((ImageView)navigationView.getHeaderView(0).findViewById(R.id.imageView)));
 

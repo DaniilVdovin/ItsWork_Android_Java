@@ -9,6 +9,8 @@ import android.media.Image;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -114,7 +116,8 @@ public class Core {
         });
         return client;
     }
-    public static void _upload(String link){
+    public static void _upload(String link, ProgressBar progressBar){
+        progressBar.setVisibility(View.VISIBLE);
         RequestParams params = new RequestParams();
         try {
             params.put("token",_user.token);
@@ -132,18 +135,20 @@ public class Core {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.e("FILE",error.toString());
             }
-        });
-        /*client.post(context, Core.Host + "/upload", params, new AsyncHttpResponseHandler() {
+
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.e("FILE","OK");
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
+                progressBar.setMax((int)totalSize);
+                progressBar.setProgress((int)bytesWritten);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e("FILE",error.toString());
+            public void onFinish() {
+                super.onFinish();
+                progressBar.setVisibility(View.GONE);
             }
-        });*/
+        });
     }
     public static void getImage(Context context,Integer id,Function<Bitmap, Object> function){
         JSONObject param = new JSONObject();

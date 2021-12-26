@@ -23,12 +23,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.daniilvdovin.iswork.CircleTransform;
 import com.daniilvdovin.iswork.Core;
 import com.daniilvdovin.iswork.MainActivity;
 import com.daniilvdovin.iswork.R;
+import com.daniilvdovin.iswork.Tools;
 import com.daniilvdovin.iswork.models.Review;
 import com.daniilvdovin.iswork.models.User;
 import com.daniilvdovin.iswork.ui.user.adapters.ReviewAdapter;
@@ -55,6 +58,7 @@ public class UserFragment extends Fragment {
     RecyclerView reviews;
     FloatingActionButton add_review;
     ReviewAdapter reviewAdapter;
+    ProgressBar progressBar_upload;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -89,6 +93,12 @@ public class UserFragment extends Fragment {
                 reviewAdapter.update(user.reviews);
                 stars.setRating(user.stars);
 
+                Picasso.get()
+                        .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+user.id+"&avatar="+user.avatar)
+                        .resize(512,512)
+                        .centerCrop(1)
+                        .transform(new CircleTransform())
+                        .into(avatar);
             }
             return null;
         });
@@ -106,11 +116,13 @@ public class UserFragment extends Fragment {
         avatar = view.findViewById(R.id.iv_user_avatar);
         reviews = view.findViewById(R.id.rec_reviews);
         add_review = view.findViewById(R.id.fab_add_review);
+        progressBar_upload = view.findViewById(R.id.progressBar);
 
         name.setText(user.fullName);
         aboutme.setText(user.email);
         address.setText(user.location);
 
+        progressBar_upload.setVisibility(View.GONE);
         stars.setRating(user.stars);
         reviewAdapter = new ReviewAdapter(user.reviews);
         reviews.setNestedScrollingEnabled(false);
@@ -118,7 +130,10 @@ public class UserFragment extends Fragment {
         reviews.setAdapter(reviewAdapter);
 
         Picasso.get()
-                .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+user.id)
+                .load(Core.Host+"/getAvatar?token="+Core._user.token+"&id="+user.id+"&avatar="+user.avatar)
+                .resize(512,512)
+                .centerCrop(1)
+                .transform(new CircleTransform())
                 .into(avatar);
 
         if(user.id == Core._user.id){
@@ -165,9 +180,18 @@ public class UserFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Core._upload(imgDecodableString);
 
-                avatar.setImageBitmap(comp);
+                Tools.PicassoClear.clearCache(getActivity().getApplicationContext());
+
+                Core._upload(imgDecodableString,progressBar_upload);
+
+                //avatar.setImageBitmap(comp);
+                Picasso.get()
+                        .load(selectedImage)
+                        .resize(512,512)
+                        .centerCrop(1)
+                        .transform(new CircleTransform())
+                        .into(avatar);
             }
         }
     }
