@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.daniilvdovin.iswork.CircleTransform;
 import com.daniilvdovin.iswork.Core;
 import com.daniilvdovin.iswork.Filters;
 import com.daniilvdovin.iswork.R;
@@ -98,7 +99,12 @@ public class AddRespondFragment extends Fragment {
             disc.setText(respond.description);
             price.setText(respond.price+" руб.");
 
-            Picasso.get().load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + respond.author).into(imageView);
+            Picasso.get()
+                    .load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + respond.author)
+                    .resize(512,512)
+                    .centerCrop(1)
+                    .transform(new CircleTransform())
+                    .into(imageView);
             loaduser();
             execut.setOnClickListener(v -> {
                 JSONObject param = new JSONObject();

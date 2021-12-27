@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.daniilvdovin.iswork.CircleTransform;
 import com.daniilvdovin.iswork.Core;
 import com.daniilvdovin.iswork.MainActivity;
 import com.daniilvdovin.iswork.R;
@@ -76,7 +77,11 @@ public class TaskDetails extends Fragment {
             synchronized (result){
                 task = new Task(result);
                 if(responsed != null)
-                    responsed.setEnabled(true);
+                    if(task.responses.size() == 0){
+                        responsed.setEnabled(false);
+                    }else {
+                        responsed.setEnabled(true);
+                    }
             }
             return null;
         });
@@ -113,6 +118,11 @@ public class TaskDetails extends Fragment {
             if (task.executer == 0 && task.status == 1 && task.author == Core._user.id) {
                 close.setVisibility(View.VISIBLE);
                 responsed.setVisibility(View.VISIBLE);
+                if(task.responses.size() == 0){
+                    responsed.setEnabled(false);
+                }else {
+                    responsed.setEnabled(true);
+                }
             }
             if (task.executer != 0 && task.status == 2)
                 complite.setVisibility(View.VISIBLE);
@@ -221,7 +231,12 @@ public class TaskDetails extends Fragment {
                 user = new User(result);
                 fullname.setText(user.fullName);
                 starBar.setRating(user.stars);
-                Picasso.get().load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + task.author+"&avatar="+Core._user.avatar).into(imageView);
+                Picasso.get()
+                        .load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + task.author+"&avatar="+Core._user.avatar)
+                        .resize(512,512)
+                        .centerCrop(1)
+                        .transform(new CircleTransform())
+                        .into(imageView);
                 UserBar.setOnClickListener((v) -> {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("user", user);
