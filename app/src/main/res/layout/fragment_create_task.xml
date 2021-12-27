@@ -5,174 +5,195 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.task.createtask.CreateTaskFragment" >
+    android:background="@drawable/screen_login_bacground"
+    tools:context=".ui.task.createtask.CreateTaskFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbarStyle="outsideOverlay"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fadeScrollbars="true"
+            android:scrollbarStyle="outsideInset">
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Что нужно сделать?"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_task_name"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:hint="Название задания"
-                android:inputType="textPersonName" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Что нужно сделать?"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Укажите адресс"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Название задания"
+                    android:inputType="textPersonName"
+                    android:paddingStart="5dp" />
 
-            <EditText
-                android:id="@+id/et_task_address"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:hint="Адрес"
-                android:inputType="textPostalAddress" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Укажите адресс"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <CheckBox
-                android:id="@+id/cb_remote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Можно выполнить удаленно" />
+                <EditText
+                    android:id="@+id/et_task_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Адрес"
+                    android:inputType="textPostalAddress"
+                    android:paddingStart="5dp" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Укажите дату когда приступить"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <CheckBox
+                    android:id="@+id/cb_remote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:text="Можно выполнить удаленно" />
 
-            <EditText
-                android:id="@+id/et_task_date"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="Дата начала работы"
-                android:inputType="date" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Укажите дату когда приступить"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Выберете категорию задания"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_task_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Дата начала работы"
+                    android:inputType="date"
+                    android:paddingStart="5dp" />
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="1dp"
-                android:dropDownWidth="match_parent"
-                android:nestedScrollingEnabled="true"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:saveEnabled="true"
-                android:spinnerMode="dialog" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Выберете категорию задания"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Укажите цену"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="1dp"
+                    android:dropDownWidth="match_parent"
+                    android:nestedScrollingEnabled="true"
+                    android:saveEnabled="true"
+                    android:spinnerMode="dropdown"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-            <EditText
-                android:id="@+id/et_task_price"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:hint="Цена"
-                android:inputType="number" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Укажите цену"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Опишите задачу подробнее"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_task_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:ems="10"
+                    android:hint="Цена"
+                    android:inputType="number"
+                    android:paddingStart="5dp" />
 
-            <EditText
-                android:id="@+id/et_task_dis"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="Описание"
-                android:inputType="textMultiLine" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Опишите задачу подробнее"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Укажите контактную информацию"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_task_dis"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="Описание"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="5dp" />
 
-            <EditText
-                android:id="@+id/et_task_dis2"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="Телефон, почта и другое"
-                android:inputType="textMultiLine" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Укажите контактную информацию"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ваши контактные данные будут предоставленны исполнителю которого вы выберете для этого задания" />
+                <EditText
+                    android:id="@+id/et_task_dis2"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="Телефон, почта и другое"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="5dp" />
 
-            <Button
-                android:id="@+id/bt_task_send"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:text="Создать" />
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:text="Ваши контактные данные будут предоставленны исполнителю которого вы выберете для этого задания" />
 
-        </LinearLayout>
-    </ScrollView>
+                <Button
+                    android:id="@+id/bt_task_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:paddingStart="5dp"
+                    android:text="Создать" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
