@@ -130,6 +130,7 @@ public class AddRespondFragment extends Fragment {
         try {
             param.put("token", Core._user.token);
             param.put("id", respond.author);
+            param.put("all", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
