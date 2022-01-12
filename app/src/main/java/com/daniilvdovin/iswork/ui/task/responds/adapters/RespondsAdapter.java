@@ -22,11 +22,14 @@ import java.util.ArrayList;
 public class RespondsAdapter extends RecyclerView.Adapter<RespondsAdapter.ResponseHolder> {
 
     ArrayList<Response> responses;
-    int executer;
+    int executer = -1;
 
     public RespondsAdapter(ArrayList<Response> responses,int executer) {
         this.responses = responses;
         this.executer = executer;
+    }
+    public RespondsAdapter(ArrayList<Response> responses) {
+        this.responses = responses;
     }
     public void update(ArrayList<Response> responses){
         this.responses.clear();
@@ -46,6 +49,8 @@ public class RespondsAdapter extends RecyclerView.Adapter<RespondsAdapter.Respon
         if(executer!=0){
             if(response.author == executer)
                 holder.mark.setVisibility(View.VISIBLE);
+            else
+                holder.mark.setVisibility(View.GONE);
         }
 
         holder.description.setText(response.description.substring(0,response.description.length()>20?20:response.description.length())+(response.description.length()>=20?"...":""));
@@ -71,6 +76,8 @@ public class RespondsAdapter extends RecyclerView.Adapter<RespondsAdapter.Respon
             description = itemView.findViewById(R.id.textView8);
             price = itemView.findViewById(R.id.textView13);
             mark = itemView.findViewById(R.id.imageView3);
+
+            mark.setVisibility(View.GONE);
         }
     }
 }

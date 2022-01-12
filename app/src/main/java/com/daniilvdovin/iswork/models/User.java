@@ -31,6 +31,8 @@ public class User implements Parcelable {
 
     public ArrayList<Task> tasks;
     public ArrayList<Review> reviews;
+    public ArrayList<Response> responces;
+
     public User(){}//Init
     public User(Map<String, Object> json){
         id = ((Double) json.get("id")).intValue();
@@ -53,6 +55,11 @@ public class User implements Parcelable {
         for (Map<String,Object> element:((ArrayList<Map<String,Object>>) json.get("reviews"))) {
             reviews.add(new Review(element));
         }
+        responces = new ArrayList<>();
+        if(json.containsKey("responces"))
+            for (Map<String,Object> element:((ArrayList<Map<String,Object>>) json.get("responces"))) {
+                responces.add(new Response(element));
+            }
 
     }
 
