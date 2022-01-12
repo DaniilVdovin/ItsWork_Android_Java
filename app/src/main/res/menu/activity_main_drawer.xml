@@ -11,10 +11,10 @@
         <item
             android:id="@+id/createTaskFragment"
             android:icon="@drawable/ic_writing_stroke"
-            android:title="Создать задание" />
+            android:title="@string/nav_create_task" />
         <item
             android:id="@+id/myResponseFragment"
             android:icon="@drawable/ic_questions_stroke"
-            android:title="Мои ответы (В разработке)" />
+            android:title="@string/nav_my_responds" />
     </group>
 </menu>
