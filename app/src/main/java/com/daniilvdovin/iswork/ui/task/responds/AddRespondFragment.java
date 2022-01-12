@@ -1,5 +1,6 @@
 package com.daniilvdovin.iswork.ui.task.responds;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,10 +23,13 @@ import com.daniilvdovin.iswork.R;
 import com.daniilvdovin.iswork.models.Response;
 import com.daniilvdovin.iswork.models.Task;
 import com.daniilvdovin.iswork.models.User;
+import com.loopj.android.http.AsyncHttpClient;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.function.Function;
 
 public class AddRespondFragment extends Fragment {
 
@@ -65,13 +69,53 @@ public class AddRespondFragment extends Fragment {
         starBar = UserBar.findViewById(R.id.rb_user_start);
         imageView = UserBar.findViewById(R.id.iv_user_image);
 
-        disc.setFilters(new InputFilter[]{Filters.main_filter});
-        price.setFilters(new InputFilter[]{Filters.price_filter});
+        View TaskBar = view.findViewById(R.id.task_bar);
+        TextView task_title = TaskBar.findViewById(R.id.tv_title);
+        TextView task_description = TaskBar.findViewById(R.id.tv_dis);
+        TextView task_price = TaskBar.findViewById(R.id.tv_price);
+        ImageView task_image = TaskBar.findViewById(R.id.i_task_icon);
+
+        loadtask(result->{
+            task_title.setText(result.title);
+            task_description.setText(result.description);
+            task_price.setText("до "+result.price+" ₽");
+            int res = android.R.drawable.ic_dialog_dialer;
+            switch (result.status){
+                case 0: res = R.drawable.ic_item_close;
+                    break;
+                case 1: res = R.drawable.ic_item_open;
+                    break;
+                case 2: res = R.drawable.ic_item_waiting;
+                    break;
+                case 3: res = R.drawable.ic_item_success;
+                    break;
+                case 4: res = android.R.drawable.ic_menu_save;
+                    break;
+            }
+            task_image.setImageResource(res);
+            TaskBar.setOnClickListener(v-> {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("task", result);
+                Navigation.findNavController(view).navigate(R.id.taskDetails,bundle);
+            });
+            if(result.executer != 0){
+                send.setVisibility(View.GONE);
+                execut.setVisibility(View.GONE);
+            }
+            return null;
+        });
 
         if(isAdd){
+            disc.setFilters(new InputFilter[]{Filters.main_filter});
+            price.setFilters(new InputFilter[]{Filters.price_filter});
+
             execut.setVisibility(View.GONE);
             UserBar.setVisibility(View.GONE);
-            execut.setVisibility(View.GONE);
+
+            if(task.executer != 0){
+                send.setVisibility(View.GONE);
+                execut.setVisibility(View.GONE);
+            }
             send.setOnClickListener(v -> {
                 JSONObject param = new JSONObject();
                 try {
@@ -90,14 +134,21 @@ public class AddRespondFragment extends Fragment {
                 });
             });
         }else {
+            disc.setText(respond.description);
+            price.setText(respond.price+" руб.");
+
             disc.setKeyListener(null);
             price.setKeyListener(null);
             price.setEnabled(false);
             disc.setEnabled(false);
             send.setVisibility(View.GONE);
 
-            disc.setText(respond.description);
-            price.setText(respond.price+" руб.");
+            if(respond.author != 0){
+                send.setVisibility(View.GONE);
+                execut.setVisibility(View.GONE);
+            }
+
+
 
             Picasso.get()
                     .load(Core.Host + "/getAvatar?token=" + Core._user.token + "&id=" + respond.author)
@@ -142,6 +193,23 @@ public class AddRespondFragment extends Fragment {
             }
             return null;
         });
-
+    }
+    void loadtask(Function<Task, Object> function){
+        JSONObject param = new JSONObject();
+        try {
+            param.put("token",Core._user.token);
+            if(isAdd)
+                param.put("id",task.id);
+            else
+                param.put("id",respond.task);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Core._post(getContext(),"/task/get",param,result->{
+            synchronized (result){
+                function.apply(new Task(result));
+            }
+            return null;
+        });
     }
 }

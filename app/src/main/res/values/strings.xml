@@ -32,5 +32,6 @@
     <string name="nav_responds_view">Ответы</string>
     <string name="nav_add_respond">Добавить ответ</string>
     <string name="nav_add_review">Создание отзыва</string>
+    <string name="nav_my_responds">Мои ответы</string>
 
 </resources>

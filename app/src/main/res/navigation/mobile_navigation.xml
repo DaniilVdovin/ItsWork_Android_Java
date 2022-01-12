@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/myResponseFragment"
         android:name="com.daniilvdovin.iswork.MyResponseFragment"
-        android:label="fragment_my_response"
+        android:label="@string/nav_my_responds"
         tools:layout="@layout/fragment_my_response" />
 
 </navigation>

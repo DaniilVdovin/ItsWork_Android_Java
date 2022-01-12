@@ -26,10 +26,18 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp" />
 
+            <include
+                android:id="@+id/task_bar"
+                layout="@layout/item_task_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
@@ -42,11 +50,12 @@
                 <EditText
                     android:id="@+id/editTextTextMultiLine3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="Описание"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:minHeight="200dp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
